@@ -2,15 +2,36 @@
 
 ## Installation
 
-1. Create a virtual environment (recommended):
+This project uses [Poetry](https://python-poetry.org/) for dependency management.
+
+1. Install Poetry (if not already installed):
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+brew install poetry
+# or: curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 2. Install dependencies:
 ```bash
-pip install -r requirements.txt
+poetry install
+```
+
+Poetry will automatically create and manage a virtual environment for you.
+
+### Adding Dependencies
+
+To add a new package (like `pnpm add`):
+```bash
+poetry add httpx
+```
+
+To add a dev dependency:
+```bash
+poetry add pytest --group dev
+```
+
+To remove a package:
+```bash
+poetry remove httpx
 ```
 
 ## Running the Application
@@ -22,26 +43,25 @@ The port is configured in code at `src/config.py`. You can run the application i
 ./run.sh
 ```
 
-**Option 2: Use the Python run script directly**
+**Option 2: Use Poetry directly**
 ```bash
-python3 run.py
+poetry run python run.py
 ```
 
-**Note**: If you have a shell alias for `python` that points to the system Python, use `python3` instead, or use `./run.sh` which automatically uses the venv's Python interpreter.
-
-**Option 2: Use the shell script**
+**Option 3: Activate Poetry shell (then use python normally)**
 ```bash
-./run.sh
+poetry shell
+python run.py
 ```
 
-**Option 3: Use uvicorn directly**
+**Option 4: Use uvicorn directly with Poetry**
 ```bash
-uvicorn src.main:app --reload --port 8001
+poetry run uvicorn src.main:app --reload --port 8001
 ```
 
 The port (default: 8001) can be changed in `src/config.py` or via environment variable:
 ```bash
-PORT=8002 python run.py
+PORT=8002 poetry run python run.py
 ```
 
 **Default Port**: Port 8001 is configured in `src/config.py` to avoid conflicts with other services (e.g., Docker containers) that may use port 8000.
