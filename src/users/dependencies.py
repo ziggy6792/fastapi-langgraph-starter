@@ -5,10 +5,11 @@ from uuid import UUID
 from fastapi import Depends
 
 from src.users import exceptions
+from src.users.schemas import UserResponse
 from src.users.service import user_repository
 
 
-async def valid_user_id(user_id: UUID) -> dict[str, Any]:
+async def valid_user_id(user_id: UUID) -> UserResponse:
     """
     Dependency to validate user exists.
     

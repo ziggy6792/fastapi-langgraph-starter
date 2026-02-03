@@ -1,4 +1,5 @@
 """User API routes."""
+from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
@@ -46,11 +47,31 @@ async def list_users() -> list[dict[str, Any]]:
     },
 )
 async def get_user(
-    user: dict[str, Any] = Depends(valid_user_id)
-) -> dict[str, Any]:
+    user:UserResponse = Depends(valid_user_id)
+):
     """Get a user by ID."""
     return user
-
+    
+@router.get(
+    "/mock/{user_id}",
+    response_model=UserResponse,
+    description="Get a user by ID",
+    summary="Get User",
+    responses={
+        status.HTTP_404_NOT_FOUND: {"description": "User not found"},
+    },
+)
+async def mock_user(
+    user_id: UUID
+):
+    """Get a user by ID."""
+    return UserResponse(
+        id=user_id,  # 👈 id comes from the URL
+        firstName="John",
+        lastName="Doe",
+        email="john.doe@example.com",
+        createdAt=datetime.now(timezone.utc),  # 👈 timezone-aware
+    )
 
 @router.put(
     "/{user_id}",
