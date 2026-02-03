@@ -1,0 +1,24 @@
+{
+  // Python Language Server Settings
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+
+  // Enable go-to-definition and references
+  "python.analysis.diagnosticMode": "workspace",
+
+  // Poetry support - will auto-detect Poetry venv
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+
+  // Editor settings for better navigation
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleImplementations": "goto",
+
+  // Enable code lens for references
+  "python.analysis.codeLens": {
+    "references": true,
+    "referencesOnImports": true
+  }
+}

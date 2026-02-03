@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="FastAPI Hello World")
+from src.users import router as users_router
+
+app = FastAPI(title="FastAPI Best Practices")
+
+# Include routers
+app.include_router(users_router.router)
 
 
 @app.get("/")
