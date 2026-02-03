@@ -1,5 +1,5 @@
 """Application configuration."""
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Config(BaseSettings):
@@ -9,9 +9,11 @@ class Config(BaseSettings):
     HOST: str = "127.0.0.1"
     RELOAD: bool = True  # Enable auto-reload in development
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True,
+        extra="ignore",  # Ignore extra fields from .env (like OPENAI_API_KEY used by AI domain)
+    )
 
 
 settings = Config()
